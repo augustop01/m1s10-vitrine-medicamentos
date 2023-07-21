@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /**
  * PASSOS PARA CRIAR UM CONTEXTO
  * 1 - [X] - importe o createContext do react
@@ -17,12 +18,32 @@ import { createContext, useState } from "react";
 
 export const MedicamentosContext = createContext();
 
-export const MedicamentosContextProvider = (children) => {
+export const MedicamentosContextProvider = ({children}) => {
 
   const [listaMedicamentos, setListaMedicamentos] = useState([]);
 
+  const AdicionarMedicamentos = (nome, lab, preco) => {
+    if(nome.length == "" || lab.length == "" || preco == 0){
+      alert('Preencha todas as informações.')
+      return
+    }
+    const novoMedicamento = {
+      id: listaMedicamentos.length + 1,
+      nome: nome,
+      laboratorio: lab,
+      preco: `R$${preco},00`,
+      favorito: false
+    }
+
+    const  novaLista = [...listaMedicamentos, novoMedicamento]
+    console.log(novaLista);
+    setListaMedicamentos(novaLista);
+    alert("Medicamento cadastrado com sucesso!")
+  }
+
+
   return (
-    <MedicamentosContext.Provider value={{listaMedicamentos, setListaMedicamentos}}>
+    <MedicamentosContext.Provider value={{listaMedicamentos, AdicionarMedicamentos}}>
       {children}
     </MedicamentosContext.Provider>
   )

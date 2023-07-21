@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react"
+import { MedicamentosContext } from "../../context/MedicamentosContext"
 
 function FormularioNovoMedicamento () {
+
+  const {AdicionarMedicamentos} = useContext(MedicamentosContext)
 
   const [nome, setNome] = useState('');
   const [lab, setLab] = useState('');
@@ -10,6 +13,7 @@ function FormularioNovoMedicamento () {
     e.preventDefault()
 
     // chamada da função de cadastro
+    AdicionarMedicamentos(nome, lab, preco)
   }
 
   return (
