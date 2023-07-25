@@ -1,18 +1,24 @@
 import './App.css'
 
-import { MedicamentosContextProvider } from './context/MedicamentosContext';
+import { MedicamentosContext} from './context/MedicamentosContext';
 
 import Header from './components/Header';
 import FormularioNovoMedicamento from './components/FormularioNovoMedicamento';
+import CardMedicamento from './components/CardMedicamento';
+import { useContext } from 'react';
 
 function App() {
+
+  const {listaMedicamentos} = useContext(MedicamentosContext);
 
   return (
     <>
       <Header/>
-      <MedicamentosContextProvider>
         <FormularioNovoMedicamento/>
-      </MedicamentosContextProvider>
+        {listaMedicamentos.map(medicamento => (
+          <CardMedicamento key={medicamento.id} medicamento={medicamento}/>
+        ))}
+        
     </>
   )
 }
